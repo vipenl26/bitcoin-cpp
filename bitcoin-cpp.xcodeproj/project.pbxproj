@@ -34,7 +34,10 @@
 		330E2A522CDF96A400C082AD /* utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
 		330E2A542CDFA1EE00C082AD /* utest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = utest.cpp; sourceTree = "<group>"; };
 		330E2A572CE0D7FE00C082AD /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		338281EC2CDF44B8005836DC /* bitcoin-cpp */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; name = "bitcoin-cpp"; path = "/Users/vipenl26/Documents/FA/bitcoin/bitcoin-cpp/bitcoin-cpp/build/Debug/bitcoin-cpp"; sourceTree = "<absolute>"; };
+		330E2A582CE0DD2500C082AD /* bitcoin-cpp */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "bitcoin-cpp"; sourceTree = BUILT_PRODUCTS_DIR; };
+		330E2A592CE0F41100C082AD /* sha256.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sha256.h; sourceTree = "<group>"; };
+		330E2A5A2CE0F62000C082AD /* config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
+		330E2A5B2CE1BC0A00C082AD /* ripemd160.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ripemd160.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,13 +54,17 @@
 		338281E32CDF44B8005836DC = {
 			isa = PBXGroup;
 			children = (
+				330E2A5B2CE1BC0A00C082AD /* ripemd160.c */,
 				330E2A472CDF906F00C082AD /* curve.h */,
 				330E2A482CDF906F00C082AD /* generator.cpp */,
 				330E2A492CDF906F00C082AD /* main.cpp */,
+				330E2A592CE0F41100C082AD /* sha256.h */,
 				330E2A4A2CDF906F00C082AD /* point.cpp */,
 				330E2A542CDFA1EE00C082AD /* utest.cpp */,
+				330E2A5A2CE0F62000C082AD /* config.h */,
 				330E2A522CDF96A400C082AD /* utils.h */,
 				330E2A572CE0D7FE00C082AD /* .gitignore */,
+				330E2A582CE0DD2500C082AD /* bitcoin-cpp */,
 			);
 			sourceTree = "<group>";
 		};
@@ -80,7 +87,7 @@
 			packageProductDependencies = (
 			);
 			productName = "bitcoin-cpp";
-			productReference = 338281EC2CDF44B8005836DC /* bitcoin-cpp */;
+			productReference = 330E2A582CE0DD2500C082AD /* bitcoin-cpp */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -255,10 +262,14 @@
 				HEADER_SEARCH_PATHS = (
 					/opt/homebrew/opt/boost/lib,
 					/opt/homebrew/opt/boost/include,
-					"/opt/homebrew/opt/openssl@3.4/lib",
-					"/opt/homebrew/opt/openssl@3.4/include",
+					/opt/homebrew/opt/openssl/lib,
+					/opt/homebrew/opt/openssl/include,
 				);
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = "--std=c++20";
+				OTHER_LDFLAGS = "--std=c++17";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIPFLAGS = "\"-lssl -lcrypto\"";
 			};
 			name = Debug;
 		};
@@ -270,11 +281,15 @@
 				HEADER_SEARCH_PATHS = (
 					/opt/homebrew/opt/boost/lib,
 					/opt/homebrew/opt/boost/include,
-					"/opt/homebrew/opt/openssl@3.4/lib",
-					"/opt/homebrew/opt/openssl@3.4/include",
+					"/opt/homebrew/opt/openssl@1.1/lib",
+					"/opt/homebrew/opt/openssl@1.1/include",
 				);
 				"HEADER_SEARCH_PATHS[arch=*]" = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = "--std=c++20";
+				OTHER_LDFLAGS = "--std=c++17";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIPFLAGS = "\"-lssl -lcrypto\"";
 			};
 			name = Release;
 		};

@@ -6,15 +6,17 @@
 //
 
 // test_math_utils.cpp
-#define BOOST_TEST_MODULE MathUtilsTest  // Defines the test module name
-#include <boost/test/included/unit_test.hpp>
+
 #include <iostream>
 #include "utils.h"  // Include the header file of the function to test
-#include "main.cpp"
+#include "config.h"
 #include "point.cpp"
+#include "sha256.h"
+#include "ripemd160.c"
 
 #ifdef TESTING_THIS
-
+#define BOOST_TEST_MODULE MathUtilsTest  // Defines the test module name
+#include <boost/test/included/unit_test.hpp>
 BOOST_AUTO_TEST_CASE( inv_test ) {
     BOOST_CHECK(inv((int256_t)17, (int256_t)43) == (int256_t)38);
 }
@@ -70,6 +72,24 @@ BOOST_AUTO_TEST_CASE(generate_public_key) {
     BOOST_CHECK(public_key.x == expected_x);
     BOOST_CHECK(public_key.y == expected_y);
     BOOST_CHECK(public_key.check_point_on_curve());
+    
+}
+
+BOOST_AUTO_TEST_CASE(sha256_test) {
+    
+    //empty string to hash
+    BOOST_CHECK(compute_sha256("")=="e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855");
+    
+    BOOST_CHECK(compute_sha256("here is a random bytes message, cool right?")=="69b9779edaa573a509999cbae415d3408c30544bad09727a1d64eff353c95b89");
+    
+}
+
+BOOST_AUTO_TEST_CASE(ripemd160_test) {
+    
+    //empty string to hash
+    BOOST_CHECK(compute_sha256("")=="9c1185a5c5e9fc54612808977ee8f548b2258d31");
+    
+    BOOST_CHECK(compute_ripemd160("hello this is a test")=="f51960af7dd4813a587ab26388ddab3b28d1f7b4");
     
 }
 

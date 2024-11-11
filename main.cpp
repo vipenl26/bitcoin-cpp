@@ -6,14 +6,11 @@
 //
 
 #include <iostream>
-//#include <boost/multiprecision/cpp_int.hpp>
-//#include "curve.h"
-//#include "utils.h"
 using namespace std;
 
 
 
-#define TESTING_THIS
+#include "config.h"
 
 
 #ifndef TESTING_THIS
@@ -23,6 +20,7 @@ int main(int argc, const char * argv[]) {
 //    cout << bitcoin_curve.p << endl;
     
 //    cout << inv(17, 43) << endl;
+    cout << "this is main" << endl;
     
     
     return 0;
