@@ -91,6 +91,15 @@ BOOST_AUTO_TEST_CASE(ripemd160_test) {
     
     BOOST_CHECK(compute_ripemd160("hello this is a test")=="f51960af7dd4813a587ab26388ddab3b28d1f7b4");
     
+    
+    
+    BOOST_CHECK(compute_sha256(compute_ripemd160(""))=="865c88e13bcf1d8651fc37ea134a9fb02310883c92532e0ad859511510314f4a");
+    
+    
+//    cout << compute_sha256(compute_ripemd160("")) << endl;
+    
+//    cout << compute_ripemd160(compute_sha256("")) << endl;
+    
 }
 
 

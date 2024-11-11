@@ -6,6 +6,7 @@
 //
 
 #include <iostream>
+#include "publickey.h"
 using namespace std;
 
 
@@ -16,11 +17,13 @@ using namespace std;
 #ifndef TESTING_THIS
 int main(int argc, const char * argv[]) {
     
-    
-//    cout << bitcoin_curve.p << endl;
-    
-//    cout << inv(17, 43) << endl;
+
     cout << "this is main" << endl;
+    
+    int256_t x("2020");
+    cout << PublicKey::to_bytes(x, 8) << endl;
+    
+    
     
     
     return 0;

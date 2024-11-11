@@ -38,6 +38,7 @@
 		330E2A592CE0F41100C082AD /* sha256.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sha256.h; sourceTree = "<group>"; };
 		330E2A5A2CE0F62000C082AD /* config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
 		330E2A5B2CE1BC0A00C082AD /* ripemd160.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ripemd160.c; sourceTree = "<group>"; };
+		330E2A5D2CE2416300C082AD /* publickey.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = publickey.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +55,7 @@
 		338281E32CDF44B8005836DC = {
 			isa = PBXGroup;
 			children = (
+				330E2A5D2CE2416300C082AD /* publickey.h */,
 				330E2A5B2CE1BC0A00C082AD /* ripemd160.c */,
 				330E2A472CDF906F00C082AD /* curve.h */,
 				330E2A482CDF906F00C082AD /* generator.cpp */,
