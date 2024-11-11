@@ -13,6 +13,7 @@
 #include <iomanip>
 #include <sstream>
 #include <string>
+#include <vector>
 using namespace boost::multiprecision;
 using namespace std;
 
@@ -105,6 +106,33 @@ static int256_t inv(int256_t n, int256_t p) {
 //    }
 //    return ss.str();
 //}
+
+
+static vector<uint8_t> string_to_bytes(string &input) {
+    vector<uint8_t> res(input.size());
+    std::memcpy(res.data(), input.data(), input.size());
+    
+    return res;
+    
+}
+
+static string bytes_to_string(vector<uint8_t> &input) {
+    string s(input.size(), 'x');
+    std::memcpy(s.data(), input.data(), input.size());
+    
+    return s;
+}
+
+static string bytes_to_hex(vector<uint8_t> input) {
+
+    
+    stringstream ss;
+    for (int i = 0; i < input.size(); i++) {
+        ss << std::hex << std::setfill('0') << std::setw(2) << (int)input[i];
+    }
+    
+    return ss.str();
+}
 
 
 

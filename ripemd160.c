@@ -427,6 +427,10 @@ std::string uint8_to_hex_string(const uint8_t *v, const size_t s) {
   return ss.str();
 }
 
+std::string uint8_to_hex_string(vector<uint8_t> input) {
+    return uint8_to_hex_string(input.data(), input.size());
+}
+
 string compute_ripemd160(string str) {
   size_t msglen = str.size();
   uint8_t msg[msglen];
@@ -445,6 +449,27 @@ string compute_ripemd160(string str) {
   // e6d64710683e82853342e24f011bc77af21884ad
 
   
+}
+
+vector<uint8_t> compute_ripemd160(vector<uint8_t> input) {
+    size_t msglen = input.size();
+    uint8_t msg[msglen];
+
+    size_t hashlen = 20;
+    uint8_t hash[hashlen];
+
+
+    memcpy(msg, input.data(), sizeof(msg));
+
+    ripemd160(msg, msglen, hash);
+    
+    vector<uint8_t> res(hashlen);
+    memcpy(res.data(), hash, sizeof(hash));
+
+    
+
+    return res;
+    
 }
 
 

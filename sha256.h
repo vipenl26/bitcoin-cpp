@@ -10,6 +10,7 @@
 #include <iomanip>
 #include <sstream>
 #include <string>
+#include <cstring>
 #include <vector>
 
 class SHA256 {
@@ -27,6 +28,13 @@ public:
         }
         return *this;
     }
+    
+    SHA256& update(vector<uint8_t> & data) {
+        uint8_t input[data.size()];
+        std::copy(data.begin(), data.end(), input);
+        return update(input, data.size());
+    }
+    
 
     SHA256& update(const std::string& data) {
         return update(reinterpret_cast<const uint8_t*>(data.c_str()), data.size());
@@ -58,8 +66,51 @@ public:
             oss << std::hex << std::setw(8) << std::setfill('0') << word;
         }
 
+
         reset();
         return oss.str();
+    }
+    
+    vector<uint8_t> final_to_vec() {
+        bitLength += dataLength * 8;
+        dataBuffer[dataLength++] = 0x80;
+
+        if (dataLength > 56) {
+            while (dataLength < BLOCK_SIZE) {
+                dataBuffer[dataLength++] = 0x00;
+            }
+            processBlock();
+            dataLength = 0;
+        }
+
+        while (dataLength < 56) {
+            dataBuffer[dataLength++] = 0x00;
+        }
+
+        for (int i = 7; i >= 0; --i) {
+            dataBuffer[dataLength++] = static_cast<uint8_t>((bitLength >> (i * 8)) & 0xFF);
+        }
+        processBlock();
+
+        
+        vector<uint8_t> res(32);
+        for (int i = 0,j=0; i < 8 && j < 32; i++) {
+            uint8_t a = state[i] % 256;
+            state[i] /= 256;
+            uint8_t b = state[i] % 256;
+            state[i] /= 256;
+            uint8_t c = state[i] % 256;
+            state[i] /= 256;
+            uint8_t d = state[i] % 256;
+            res[j++] = d;
+            res[j++] = c;
+            res[j++] = b;
+            res[j++] = a;
+        }
+        
+
+        reset();
+        return res;
     }
 
 private:
@@ -123,4 +174,8 @@ private:
 
 static string compute_sha256(string input) {
     return sha256.update(input).final();
+}
+
+static vector<uint8_t> compute_sha256(vector<uint8_t> input) {
+    return sha256.update(input).final_to_vec();
 }

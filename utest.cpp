@@ -93,14 +93,46 @@ BOOST_AUTO_TEST_CASE(ripemd160_test) {
     
     
     
-    BOOST_CHECK(compute_sha256(compute_ripemd160(""))=="865c88e13bcf1d8651fc37ea134a9fb02310883c92532e0ad859511510314f4a");
+}
+
+
+BOOST_AUTO_TEST_CASE(string_bytes) {
+    string s = "abc";
+    auto v = string_to_bytes(s);
+    
+    for (int i = 0; i < v.size();i++) {
+        BOOST_CHECK(s[i] == v[i]);
+    }
     
     
-//    cout << compute_sha256(compute_ripemd160("")) << endl;
-    
-//    cout << compute_ripemd160(compute_sha256("")) << endl;
+    BOOST_CHECK(bytes_to_string(v)==s);
     
 }
+
+
+BOOST_AUTO_TEST_CASE(ripemd160_sha256_test) {
+    
+    //empty string to hash
+    string s = "";
+
+        
+    BOOST_CHECK(uint8_to_hex_string(compute_sha256(string_to_bytes(s))) == "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855");
+    BOOST_CHECK(bytes_to_hex(compute_ripemd160(string_to_bytes(s))) == "9c1185a5c5e9fc54612808977ee8f548b2258d31");
+    
+    BOOST_CHECK(uint8_to_hex_string(compute_ripemd160(compute_sha256(string_to_bytes(s)))) == "b472a266d0bd89c13706a4132ccfb16f7c3b9fcb");
+    
+    
+    s = "only advance!";
+
+    
+    BOOST_CHECK(uint8_to_hex_string(compute_ripemd160(compute_sha256(string_to_bytes(s)))) == "71e8a0cf93adcc523a456a908c948aa842f343f8");
+    
+    
+    
+    
+}
+
+
 
 
 
