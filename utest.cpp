@@ -87,7 +87,7 @@ BOOST_AUTO_TEST_CASE(sha256_test) {
 BOOST_AUTO_TEST_CASE(ripemd160_test) {
     
     //empty string to hash
-    BOOST_CHECK(compute_sha256("")=="9c1185a5c5e9fc54612808977ee8f548b2258d31");
+    BOOST_CHECK(compute_ripemd160("")=="9c1185a5c5e9fc54612808977ee8f548b2258d31");
     
     BOOST_CHECK(compute_ripemd160("hello this is a test")=="f51960af7dd4813a587ab26388ddab3b28d1f7b4");
     
