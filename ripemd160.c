@@ -97,7 +97,7 @@ LIBBTC_END_DECL
 
 LIBBTC_BEGIN_DECL
 
-LIBBTC_API void ripemd160(const uint8_t* msg, uint32_t msg_len, uint8_t* hash);
+//LIBBTC_API void ripemd160(const uint8_t* msg, uint32_t msg_len, uint8_t* hash);
 
 LIBBTC_END_DECL
 
@@ -367,7 +367,7 @@ static void compress(uint32_t* MDbuf, uint32_t* X)
     MDbuf[0] = ddd;
 }
 
-void ripemd160(const uint8_t* msg, uint32_t msg_len, uint8_t* hash)
+static void ripemd160(const uint8_t* msg, uint32_t msg_len, uint8_t* hash)
 {
     uint32_t i;
     int j;
@@ -415,7 +415,7 @@ void ripemd160(const uint8_t* msg, uint32_t msg_len, uint8_t* hash)
 }
 
 
-std::string uint8_to_hex_string(const uint8_t *v, const size_t s) {
+static std::string uint8_to_hex_string(const uint8_t *v, const size_t s) {
   std::stringstream ss;
 
   ss << std::hex << std::setfill('0');
@@ -427,11 +427,11 @@ std::string uint8_to_hex_string(const uint8_t *v, const size_t s) {
   return ss.str();
 }
 
-std::string uint8_to_hex_string(vector<uint8_t> input) {
+static std::string uint8_to_hex_string(vector<uint8_t> input) {
     return uint8_to_hex_string(input.data(), input.size());
 }
 
-string compute_ripemd160(string str) {
+static string compute_ripemd160(string str) {
   size_t msglen = str.size();
   uint8_t msg[msglen];
 
@@ -451,7 +451,7 @@ string compute_ripemd160(string str) {
   
 }
 
-vector<uint8_t> compute_ripemd160(vector<uint8_t> input) {
+static vector<uint8_t> compute_ripemd160(vector<uint8_t> input) {
     size_t msglen = input.size();
     uint8_t msg[msglen];
 

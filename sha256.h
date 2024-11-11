@@ -13,7 +13,7 @@
 #include <cstring>
 #include <vector>
 
-class SHA256 {
+static class SHA256 {
 public:
     SHA256() { reset(); }
 
