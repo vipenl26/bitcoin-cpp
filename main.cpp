@@ -20,7 +20,7 @@ int main(int argc, const char * argv[]) {
 
     cout << "this is main" << endl;
     
-    int256_t x("2020");
+    uint256_t x("2020");
     cout << PublicKey::to_bytes(x, 8) << endl;
     
     

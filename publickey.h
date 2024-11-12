@@ -20,7 +20,7 @@ public:
         
     }
     
-    static vector<uint8_t> to_bytes(int256_t input) {
+    static vector<uint8_t> to_bytes(uint256_t input) {
         vector<uint8_t> res(32);
         for (int i = 31;i >= 0;i--) {
             res[i] = static_cast<uint8_t>(input % 256);

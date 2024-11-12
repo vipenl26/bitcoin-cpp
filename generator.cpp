@@ -11,7 +11,7 @@ using namespace boost::multiprecision;
 class Generator {
 public:
     Point G;
-    int256_t n;
+    uint256_t n;
     
     // need to figure out/derive who to find the order
     // 0 * G == n * G = INF

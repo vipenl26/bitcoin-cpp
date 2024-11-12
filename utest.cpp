@@ -18,12 +18,12 @@
 #define BOOST_TEST_MODULE MathUtilsTest  // Defines the test module name
 #include <boost/test/included/unit_test.hpp>
 BOOST_AUTO_TEST_CASE( inv_test ) {
-    BOOST_CHECK(inv((int256_t)17, (int256_t)43) == (int256_t)38);
+    BOOST_CHECK(inv((uint256_t)17, (uint256_t)43) == (uint256_t)38);
 }
 
 
 BOOST_AUTO_TEST_CASE( point_addition_test ) {
-    int256_t sk;
+    uint256_t sk;
     Point pk;
     
     sk = 1;
@@ -61,11 +61,11 @@ BOOST_AUTO_TEST_CASE( point_multiplication_test ) {
 }
 
 BOOST_AUTO_TEST_CASE(generate_public_key) {
-    int256_t secret_key("22265090479312778178772228083027296664144");
+    uint256_t secret_key("22265090479312778178772228083027296664144");
     
     Point public_key = G * secret_key;
     
-    int256_t expected_x("83998262154709529558614902604110599582969848537757180553516367057821848015989"),
+    uint256_t expected_x("83998262154709529558614902604110599582969848537757180553516367057821848015989"),
     expected_y("37676469766173670826348691885774454391218658108212372128812329274086400588247");
     public_key.polish();
     

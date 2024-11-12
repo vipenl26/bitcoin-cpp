@@ -20,26 +20,38 @@ using namespace std;
 
 #ifndef MY_UTILS
 #define MY_UTILS
-//static void check_is_mul_overflow(int256_t a, int256_t b) {
-//    if (a > std::numeric_limits<int256_t>::max() / b) {
+//static void check_is_mul_overflow(uint256_t a, uint256_t b) {
+//    if (a > std::numeric_limits<uint256_t>::max() / b) {
 //        cout << "OVERFLOW " << endl;
 //    }
 //}
-static int256_t modmul(int256_t a, int256_t b, int256_t mod) {
+static uint256_t modmul(uint256_t a, uint256_t b, uint256_t mod) {
     a = a % mod;
     b = b % mod;
 
-    return static_cast<int256_t>(((int512_t)a * b) % mod);
+    return static_cast<uint256_t>(((uint512_t)a * b) % mod);
     
 }
-static int256_t modadd(int256_t a, int256_t b, int256_t mod) {
+static uint256_t modadd(uint256_t a, uint256_t b, uint256_t mod) {
     a = a % mod;
     b = b % mod;
     int512_t res =  ((int512_t)a + b) % mod;
     
-    return static_cast<int256_t>(res);
+    return static_cast<uint256_t>(res);
 }
-static int256_t pow(int256_t a, int256_t b, int256_t mod) {
+static uint256_t modsub(uint256_t a, uint256_t b, uint256_t mod) {
+    a = a % mod;
+    b = b % mod;
+    int512_t res =  (a - (int512_t)b) % mod;
+    if (res < 0)res+=mod;
+    
+    return static_cast<uint256_t>(res);
+}
+static uint256_t neg(uint256_t a, uint256_t mod) {
+    a = a % mod;
+    return static_cast<uint256_t>(mod - (int512_t)a);
+}
+static uint256_t pow(uint256_t a, uint256_t b, uint256_t mod) {
     a = a % mod;
     b = b % mod;
     if (a < 0)a+=mod;
@@ -54,32 +66,32 @@ static int256_t pow(int256_t a, int256_t b, int256_t mod) {
         b = b >> 1;
     }
     
-    return static_cast<int256_t>(res);
+    return static_cast<uint256_t>(res);
 }
 
 //TODO: this is not working figureout why?
-static std::tuple<int256_t, int256_t, int256_t> extended_euclidean_algorithm(int256_t a, int256_t b, int256_t mod) {
+static std::tuple<uint256_t, uint256_t, uint256_t> extended_euclidean_algorithm(uint256_t a, uint256_t b, uint256_t mod) {
     
-    int256_t old_r = a, r = b;
-    int256_t old_s = 1, s = 0;
-    int256_t old_t = 0, t = 1;
+    uint256_t old_r = a, r = b;
+    uint256_t old_s = 1, s = 0;
+    uint256_t old_t = 0, t = 1;
     
     while(r != 0) {
-        int256_t quotient = old_r / r;
-        int256_t temp;
+        uint256_t quotient = old_r / r;
+        uint256_t temp;
         
         temp = old_r;
         old_r = r;
-        r = modadd(temp, -modmul(quotient, r, mod), mod);
+        r = modsub(temp, modmul(quotient, r, mod), mod);
         
         temp = old_s;
         old_s = s;
-        s = modadd(temp, -modmul(quotient, s, mod), mod);
+        s = modsub(temp, modmul(quotient, s, mod), mod);
 
         
         temp = old_t;
         old_t = t;
-        t = modadd(temp, -modmul(quotient, t, mod), mod);
+        t = modsub(temp, modmul(quotient, t, mod), mod);
 
         
     }
@@ -87,12 +99,12 @@ static std::tuple<int256_t, int256_t, int256_t> extended_euclidean_algorithm(int
     return std::make_tuple(old_r, old_s, old_t);
 }
 
-static int256_t inv(int256_t n, int256_t p) {
+static uint256_t inv(uint256_t n, uint256_t p) {
     // returns (n * m) % p = 1
-//    std::tuple<int256_t, int256_t,int256_t> tup = extended_euclidean_algorithm(n, p, p);
+//    std::tuple<uint256_t, uint256_t,uint256_t> tup = extended_euclidean_algorithm(n, p, p);
 //    return std::get<1>(tup) % p;
     
-    return pow(n, p - 2, p);
+    return pow(n, modsub(p, (uint256_t)2, std::numeric_limits<uint256_t>::max()), p);
 }
     
     

@@ -14,7 +14,7 @@ class Curve {
 //    int256_t a;
     
 public:
-    int256_t p,a,b;
+    uint256_t p,a,b;
     
     // by default it is a bitcoin secp256k1 curve
     // y^2 = x^3 + 7
