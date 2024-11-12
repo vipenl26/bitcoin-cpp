@@ -9,7 +9,8 @@
 
 using namespace boost::multiprecision;
 
-
+#ifndef CURVE
+#define CURVE
 class Curve {
 //    int256_t a;
     
@@ -31,5 +32,7 @@ public:
 };
 
 static Curve bitcoin_curve;
+
+#endif
 
 

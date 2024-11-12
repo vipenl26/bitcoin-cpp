@@ -172,7 +172,8 @@ LIBBTC_END_DECL
         (a) = ROL((a), (s)) + (e);                    \
         (c) = ROL((c), 10);                           \
     }
-
+#ifndef RIPEMD160
+#define RIPEMD160
 static void compress(uint32_t* MDbuf, uint32_t* X)
 {
     uint32_t aa = MDbuf[0], bb = MDbuf[1], cc = MDbuf[2], dd = MDbuf[3], ee = MDbuf[4];
@@ -472,7 +473,7 @@ static vector<uint8_t> compute_ripemd160(vector<uint8_t> input) {
     
 }
 
-
+#endif
 
 #undef F(x, y, z)
 #undef G(x, y, z)

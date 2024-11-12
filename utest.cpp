@@ -13,6 +13,7 @@
 #include "point.cpp"
 #include "sha256.h"
 #include "ripemd160.c"
+#include "publickey.h"
 
 #ifdef TESTING_THIS
 #define BOOST_TEST_MODULE MathUtilsTest  // Defines the test module name
@@ -67,7 +68,7 @@ BOOST_AUTO_TEST_CASE(generate_public_key) {
     
     uint256_t expected_x("83998262154709529558614902604110599582969848537757180553516367057821848015989"),
     expected_y("37676469766173670826348691885774454391218658108212372128812329274086400588247");
-    public_key.polish();
+    
     
     BOOST_CHECK(public_key.x == expected_x);
     BOOST_CHECK(public_key.y == expected_y);
@@ -126,6 +127,28 @@ BOOST_AUTO_TEST_CASE(ripemd160_sha256_test) {
 
     
     BOOST_CHECK(uint8_to_hex_string(compute_ripemd160(compute_sha256(string_to_bytes(s)))) == "71e8a0cf93adcc523a456a908c948aa842f343f8");
+    
+    
+    
+    
+}
+
+
+BOOST_AUTO_TEST_CASE(btc_address) {
+    
+
+    int256_t expected("22265090479312778178772228083027296664144");
+    BOOST_CHECK(secret_key==expected);
+
+    
+    PublicKey pk = PublicKey(public_key);
+    auto address = pk.address("test", true);
+    
+    cout << "\nthis is address" << endl;
+    cout << address << endl;
+    
+    BOOST_CHECK(address=="mnNcaVkC35ezZSgvn8fhXEa9QTHSUtPfzQ");
+    
     
     
     

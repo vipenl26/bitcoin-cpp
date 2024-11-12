@@ -8,12 +8,14 @@
 #include <boost/multiprecision/cpp_int.hpp>
 #include "curve.h"
 #include "utils.h"
+
 using namespace boost::multiprecision;
 using namespace std;
-#define deb(x) {cout << #x << ':' << x << '\n';}
+
 
 #ifndef MY_POINT
 #define MY_POINT
+#define deb(x) {cout << #x << ':' << x << '\n';}
 class Point {
 public:
     Curve curve;
@@ -30,11 +32,23 @@ public:
     Point(Curve curve, uint256_t x, uint256_t y):curve(curve), x(x),y(y){
     }
     
-    //TODO: understand why polish doesn't work
-    void polish(){
-        if(x<0)x = (x + curve.p) % curve.p;
-        if(y<0)y = (y + curve.p) % curve.p;
+    static vector<uint8_t> to_bytes(uint256_t input) {
+        vector<uint8_t> res(32);
+        for (int i = 31;i >= 0;i--) {
+            res[i] = static_cast<uint8_t>(input % 256);
+            input /= 256;
+        }
+        return res;
     }
+    
+    static uint256_t from_bytes(vector<uint8_t> input) {
+        uint256_t res = 0;
+        for (int i = 0; i < input.size();i++) {
+            res = res * 256 + input[i];
+        }
+        return res;
+    }
+    
     
     Point(bool is_inf) {
         this->is_inf = is_inf;
@@ -157,6 +171,10 @@ public:
 
 
 static Point G;
+// using same string as Andrej to verifty the public_key
+static string private_key_string ="Andrej is cool :P";
+static uint256_t secret_key(Point::from_bytes(string_to_bytes(private_key_string)));
+static auto public_key = G * secret_key;
 
 #endif
 

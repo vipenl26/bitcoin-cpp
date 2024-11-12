@@ -13,6 +13,8 @@
 #include <cstring>
 #include <vector>
 
+#ifndef __SHA256__
+#define __SHA256__
 static class SHA256 {
 public:
     SHA256() { reset(); }
@@ -179,3 +181,5 @@ static string compute_sha256(string input) {
 static vector<uint8_t> compute_sha256(vector<uint8_t> input) {
     return sha256.update(input).final_to_vec();
 }
+
+#endif
