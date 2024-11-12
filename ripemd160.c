@@ -22,8 +22,6 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-
-
 #include <string.h>
 
 // ==================================================
@@ -44,7 +42,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef uint8_t btc_bool; //!serialize, c/c++ save bool
+typedef uint8_t btc_bool; //! serialize, c/c++ save bool
 
 #ifndef true
 #define true 1
@@ -55,11 +53,11 @@ typedef uint8_t btc_bool; //!serialize, c/c++ save bool
 #endif
 
 #ifdef __cplusplus
-# define LIBBTC_BEGIN_DECL extern "C" {
-# define LIBBTC_END_DECL    }
+#define LIBBTC_BEGIN_DECL extern "C" {
+#define LIBBTC_END_DECL }
 #else
-# define LIBBTC_BEGIN_DECL /* empty */
-# define LIBBTC_END_DECL    /* empty */
+#define LIBBTC_BEGIN_DECL /* empty */
+#define LIBBTC_END_DECL   /* empty */
 #endif
 
 #ifndef LIBBTC_API
@@ -82,8 +80,8 @@ typedef uint8_t btc_bool; //!serialize, c/c++ save bool
 #define BTC_ECKEY_PKEY_LENGTH 32
 #define BTC_HASH_LENGTH 32
 
-#define BTC_MIN(a,b) (((a)<(b))?(a):(b))
-#define BTC_MAX(a,b) (((a)>(b))?(a):(b))
+#define BTC_MIN(a, b) (((a) < (b)) ? (a) : (b))
+#define BTC_MAX(a, b) (((a) > (b)) ? (a) : (b))
 
 LIBBTC_BEGIN_DECL
 
@@ -97,7 +95,8 @@ LIBBTC_END_DECL
 
 LIBBTC_BEGIN_DECL
 
-//LIBBTC_API void ripemd160(const uint8_t* msg, uint32_t msg_len, uint8_t* hash);
+// LIBBTC_API void ripemd160(const uint8_t* msg, uint32_t msg_len, uint8_t*
+// hash);
 
 LIBBTC_END_DECL
 
@@ -112,72 +111,73 @@ LIBBTC_END_DECL
 #define IQ(x, y, z) (((x) & (z)) | ((y) & ~(z)))
 #define J(x, y, z) ((x) ^ ((y) | ~(z)))
 //
-#define FF(a, b, c, d, e, x, s)        \
-    {                                  \
-        (a) += F((b), (c), (d)) + (x); \
-        (a) = ROL((a), (s)) + (e);     \
-        (c) = ROL((c), 10);            \
+#define FF(a, b, c, d, e, x, s)                                                \
+    {                                                                          \
+        (a) += F((b), (c), (d)) + (x);                                         \
+        (a) = ROL((a), (s)) + (e);                                             \
+        (c) = ROL((c), 10);                                                    \
     }
-#define GG(a, b, c, d, e, x, s)                       \
-    {                                                 \
-        (a) += G((b), (c), (d)) + (x) + 0x5a827999UL; \
-        (a) = ROL((a), (s)) + (e);                    \
-        (c) = ROL((c), 10);                           \
+#define GG(a, b, c, d, e, x, s)                                                \
+    {                                                                          \
+        (a) += G((b), (c), (d)) + (x) + 0x5a827999UL;                          \
+        (a) = ROL((a), (s)) + (e);                                             \
+        (c) = ROL((c), 10);                                                    \
     }
-#define HH(a, b, c, d, e, x, s)                       \
-    {                                                 \
-        (a) += H((b), (c), (d)) + (x) + 0x6ed9eba1UL; \
-        (a) = ROL((a), (s)) + (e);                    \
-        (c) = ROL((c), 10);                           \
+#define HH(a, b, c, d, e, x, s)                                                \
+    {                                                                          \
+        (a) += H((b), (c), (d)) + (x) + 0x6ed9eba1UL;                          \
+        (a) = ROL((a), (s)) + (e);                                             \
+        (c) = ROL((c), 10);                                                    \
     }
-#define II(a, b, c, d, e, x, s)                        \
-    {                                                  \
-        (a) += IQ((b), (c), (d)) + (x) + 0x8f1bbcdcUL; \
-        (a) = ROL((a), (s)) + (e);                     \
-        (c) = ROL((c), 10);                            \
+#define II(a, b, c, d, e, x, s)                                                \
+    {                                                                          \
+        (a) += IQ((b), (c), (d)) + (x) + 0x8f1bbcdcUL;                         \
+        (a) = ROL((a), (s)) + (e);                                             \
+        (c) = ROL((c), 10);                                                    \
     }
-#define JJ(a, b, c, d, e, x, s)                       \
-    {                                                 \
-        (a) += J((b), (c), (d)) + (x) + 0xa953fd4eUL; \
-        (a) = ROL((a), (s)) + (e);                    \
-        (c) = ROL((c), 10);                           \
+#define JJ(a, b, c, d, e, x, s)                                                \
+    {                                                                          \
+        (a) += J((b), (c), (d)) + (x) + 0xa953fd4eUL;                          \
+        (a) = ROL((a), (s)) + (e);                                             \
+        (c) = ROL((c), 10);                                                    \
     }
-#define FFF(a, b, c, d, e, x, s)       \
-    {                                  \
-        (a) += F((b), (c), (d)) + (x); \
-        (a) = ROL((a), (s)) + (e);     \
-        (c) = ROL((c), 10);            \
+#define FFF(a, b, c, d, e, x, s)                                               \
+    {                                                                          \
+        (a) += F((b), (c), (d)) + (x);                                         \
+        (a) = ROL((a), (s)) + (e);                                             \
+        (c) = ROL((c), 10);                                                    \
     }
-#define GGG(a, b, c, d, e, x, s)                      \
-    {                                                 \
-        (a) += G((b), (c), (d)) + (x) + 0x7a6d76e9UL; \
-        (a) = ROL((a), (s)) + (e);                    \
-        (c) = ROL((c), 10);                           \
+#define GGG(a, b, c, d, e, x, s)                                               \
+    {                                                                          \
+        (a) += G((b), (c), (d)) + (x) + 0x7a6d76e9UL;                          \
+        (a) = ROL((a), (s)) + (e);                                             \
+        (c) = ROL((c), 10);                                                    \
     }
-#define HHH(a, b, c, d, e, x, s)                      \
-    {                                                 \
-        (a) += H((b), (c), (d)) + (x) + 0x6d703ef3UL; \
-        (a) = ROL((a), (s)) + (e);                    \
-        (c) = ROL((c), 10);                           \
+#define HHH(a, b, c, d, e, x, s)                                               \
+    {                                                                          \
+        (a) += H((b), (c), (d)) + (x) + 0x6d703ef3UL;                          \
+        (a) = ROL((a), (s)) + (e);                                             \
+        (c) = ROL((c), 10);                                                    \
     }
-#define III(a, b, c, d, e, x, s)                       \
-    {                                                  \
-        (a) += IQ((b), (c), (d)) + (x) + 0x5c4dd124UL; \
-        (a) = ROL((a), (s)) + (e);                     \
-        (c) = ROL((c), 10);                            \
+#define III(a, b, c, d, e, x, s)                                               \
+    {                                                                          \
+        (a) += IQ((b), (c), (d)) + (x) + 0x5c4dd124UL;                         \
+        (a) = ROL((a), (s)) + (e);                                             \
+        (c) = ROL((c), 10);                                                    \
     }
-#define JJJ(a, b, c, d, e, x, s)                      \
-    {                                                 \
-        (a) += J((b), (c), (d)) + (x) + 0x50a28be6UL; \
-        (a) = ROL((a), (s)) + (e);                    \
-        (c) = ROL((c), 10);                           \
+#define JJJ(a, b, c, d, e, x, s)                                               \
+    {                                                                          \
+        (a) += J((b), (c), (d)) + (x) + 0x50a28be6UL;                          \
+        (a) = ROL((a), (s)) + (e);                                             \
+        (c) = ROL((c), 10);                                                    \
     }
 #ifndef RIPEMD160
 #define RIPEMD160
-static void compress(uint32_t* MDbuf, uint32_t* X)
-{
-    uint32_t aa = MDbuf[0], bb = MDbuf[1], cc = MDbuf[2], dd = MDbuf[3], ee = MDbuf[4];
-    uint32_t aaa = MDbuf[0], bbb = MDbuf[1], ccc = MDbuf[2], ddd = MDbuf[3], eee = MDbuf[4];
+static void compress(uint32_t *MDbuf, uint32_t *X) {
+    uint32_t aa = MDbuf[0], bb = MDbuf[1], cc = MDbuf[2], dd = MDbuf[3],
+             ee = MDbuf[4];
+    uint32_t aaa = MDbuf[0], bbb = MDbuf[1], ccc = MDbuf[2], ddd = MDbuf[3],
+             eee = MDbuf[4];
 
     /* round 1 */
     FF(aa, bb, cc, dd, ee, X[0], 11);
@@ -368,11 +368,11 @@ static void compress(uint32_t* MDbuf, uint32_t* X)
     MDbuf[0] = ddd;
 }
 
-static void ripemd160(const uint8_t* msg, uint32_t msg_len, uint8_t* hash)
-{
+static void ripemd160(const uint8_t *msg, uint32_t msg_len, uint8_t *hash) {
     uint32_t i;
     int j;
-    uint32_t digest[5] = {0x67452301, 0xefcdab89, 0x98badcfe, 0x10325476, 0xc3d2e1f0UL};
+    uint32_t digest[5] = {0x67452301, 0xefcdab89, 0x98badcfe, 0x10325476,
+                          0xc3d2e1f0UL};
 
     for (i = 0; i < (msg_len >> 6); ++i) {
         uint32_t chunk[16];
@@ -415,17 +415,16 @@ static void ripemd160(const uint8_t* msg, uint32_t msg_len, uint8_t* hash)
     }
 }
 
-
 static std::string uint8_to_hex_string(const uint8_t *v, const size_t s) {
-  std::stringstream ss;
+    std::stringstream ss;
 
-  ss << std::hex << std::setfill('0');
+    ss << std::hex << std::setfill('0');
 
-  for (int i = 0; i < s; i++) {
-    ss << std::hex << std::setw(2) << static_cast<int>(v[i]);
-  }
+    for (int i = 0; i < s; i++) {
+        ss << std::hex << std::setw(2) << static_cast<int>(v[i]);
+    }
 
-  return ss.str();
+    return ss.str();
 }
 
 static std::string uint8_to_hex_string(vector<uint8_t> input) {
@@ -433,23 +432,20 @@ static std::string uint8_to_hex_string(vector<uint8_t> input) {
 }
 
 static string compute_ripemd160(string str) {
-  size_t msglen = str.size();
-  uint8_t msg[msglen];
+    size_t msglen = str.size();
+    uint8_t msg[msglen];
 
-  size_t hashlen = 20;
-  uint8_t hash[hashlen];
+    size_t hashlen = 20;
+    uint8_t hash[hashlen];
 
+    memcpy(msg, str.c_str(), sizeof(msg));
 
-  memcpy(msg, str.c_str(), sizeof(msg));
+    ripemd160(msg, msglen, hash);
 
-  ripemd160(msg, msglen, hash);
-
-  std::string hexstr = uint8_to_hex_string(hash, hashlen);
+    std::string hexstr = uint8_to_hex_string(hash, hashlen);
 
     return hexstr;
-  // e6d64710683e82853342e24f011bc77af21884ad
-
-  
+    // e6d64710683e82853342e24f011bc77af21884ad
 }
 
 static vector<uint8_t> compute_ripemd160(vector<uint8_t> input) {
@@ -459,18 +455,14 @@ static vector<uint8_t> compute_ripemd160(vector<uint8_t> input) {
     size_t hashlen = 20;
     uint8_t hash[hashlen];
 
-
     memcpy(msg, input.data(), sizeof(msg));
 
     ripemd160(msg, msglen, hash);
-    
+
     vector<uint8_t> res(hashlen);
     memcpy(res.data(), hash, sizeof(hash));
 
-    
-
     return res;
-    
 }
 
 #endif

@@ -12,27 +12,25 @@ using namespace boost::multiprecision;
 #ifndef CURVE
 #define CURVE
 class Curve {
-//    int256_t a;
-    
-public:
-    uint256_t p,a,b;
-    
+    //    int256_t a;
+
+  public:
+    uint256_t p, a, b;
+
     // by default it is a bitcoin secp256k1 curve
     // y^2 = x^3 + 7
-    Curve():p("0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFFFFFC2F") {
+    Curve()
+        : p("0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFFFFFC2"
+            "F") {
         a = 0;
         b = 7;
     }
-    
-    bool operator==(const Curve& other) {
-        return p==other.p && a==other.a && b==other.b;
-    }
-    
 
+    bool operator==(const Curve &other) {
+        return p == other.p && a == other.a && b == other.b;
+    }
 };
 
 static Curve bitcoin_curve;
 
 #endif
-
-
