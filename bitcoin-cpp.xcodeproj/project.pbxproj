@@ -39,6 +39,7 @@
 		330E2A5A2CE0F62000C082AD /* config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
 		330E2A5B2CE1BC0A00C082AD /* ripemd160.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ripemd160.c; sourceTree = "<group>"; };
 		330E2A5D2CE2416300C082AD /* publickey.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = publickey.h; sourceTree = "<group>"; };
+		330E2A5E2CE3A4D400C082AD /* tx.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tx.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +64,7 @@
 				330E2A592CE0F41100C082AD /* sha256.h */,
 				330E2A4A2CDF906F00C082AD /* point.cpp */,
 				330E2A542CDFA1EE00C082AD /* utest.cpp */,
+				330E2A5E2CE3A4D400C082AD /* tx.h */,
 				330E2A5A2CE0F62000C082AD /* config.h */,
 				330E2A522CDF96A400C082AD /* utils.h */,
 				330E2A572CE0D7FE00C082AD /* .gitignore */,

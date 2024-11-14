@@ -14,11 +14,32 @@
 #include <string>
 #include <tuple>
 #include <vector>
+#include <list>
+#include <set>
+#include <map>
 using namespace boost::multiprecision;
 using namespace std;
 
 #ifndef MY_UTILS
 #define MY_UTILS
+#define DEBUG_MODE true
+#define deb(x) {if(DEBUG_MODE)cerr << #x << ':' << x << '\n';}
+#define FOO1(x) {if(DEBUG_MODE)cerr << x << '\n';}
+#define FOO2(x, y) {if(DEBUG_MODE)cerr << x << ' ' << y << '\n';}
+#define FOO3(x, y, z) {if(DEBUG_MODE)cerr << x << ' ' << y << ' '<< z << '\n';}
+#define FOO4(x, y, z, a) {if(DEBUG_MODE)cerr << x << ' ' << y << ' '<< z << ' ' << a << '\n';}
+#define FOO5(x, y, z, a, b) {if(DEBUG_MODE)cerr << x << ' ' << y << ' '<< z << ' ' << a << ' ' << b << '\n';}
+#define GET_MACRO(_0, _1, _2, _3, _4, _5, NAME, ...) NAME
+#define show(...) GET_MACRO(_0, ##__VA_ARGS__, FOO5, FOO4, FOO3, FOO2, FOO1, FOO0)(__VA_ARGS__)
+
+template <class T, class K>ostream & operator<<(ostream &cout, pair<T, K> &a) {cout << a.first << ' ' << a.second; return cout;}
+template<class T>ostream& operator<<(ostream &cout, vector<T> &a) {cout << "["; for (auto &x : a) {cout << x << " ";} cout << "]"; return cout;}
+template<class T>istream& operator>>(istream &cin, vector<T> &a) {for (auto &x : a) {cin >> x;} return cin;}
+template<class T>ostream& operator<<(ostream &cout, list<T> &a) {cout << "["; for (auto &x : a) {cout << x << " ";} cout << "]"; return cout;}
+template<class T>ostream& operator<<(ostream &cout, set<T> &a) {cout << "["; for (auto &x : a) {cout << x << " ";} cout << "]"; return cout;}
+template<class T, class P>ostream& operator<<(ostream &cout, map<T, P> &a) {cout << "["; for (auto &x : a) {cout << "{" << x << "} ";} cout << "]"; return cout;}
+template<class T> void read(T &a) {cin >> a;}
+
 // static void check_is_mul_overflow(uint256_t a, uint256_t b) {
 //     if (a > std::numeric_limits<uint256_t>::max() / b) {
 //         cout << "OVERFLOW " << endl;
@@ -118,14 +139,14 @@ static uint256_t inv(uint256_t n, uint256_t p) {
 //     return ss.str();
 // }
 
-static vector<uint8_t> string_to_bytes(string &input) {
+static vector<uint8_t> string_to_bytes(string input) {
     vector<uint8_t> res(input.size());
     std::memcpy(res.data(), input.data(), input.size());
 
     return res;
 }
 
-static string bytes_to_string(vector<uint8_t> &input) {
+static string bytes_to_string(vector<uint8_t> input) {
     string s(input.size(), 'x');
     std::memcpy(s.data(), input.data(), input.size());
 

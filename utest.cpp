@@ -14,6 +14,7 @@
 #include "sha256.h"
 #include "utils.h" // Include the header file of the function to test
 #include <iostream>
+#include "tx.h"
 
 #ifdef TESTING_THIS
 #define BOOST_TEST_MODULE MathUtilsTest // Defines the test module name
@@ -132,5 +133,23 @@ BOOST_AUTO_TEST_CASE(btc_address) {
 
     BOOST_CHECK(address == "mnNcaVkC35ezZSgvn8fhXEa9QTHSUtPfzQ");
 }
+
+
+BOOST_AUTO_TEST_CASE(script_test) {
+
+    
+    
+    
+    
+    
+    
+    BOOST_CHECK(bytes_to_hex(out1_script.encode()) == "1976a91475b0c9fc784ba2ea0839e3cdf2669495cac6707388ac");
+    
+    BOOST_CHECK(bytes_to_hex(out2_script.encode()) == "1976a9144b3518229b0d3554fe7cd3796ade632aff3069d888ac");
+    
+}
+
+
+
 
 #endif

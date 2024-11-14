@@ -33,13 +33,21 @@ class Point {
     }
     Point(Curve curve, uint256_t x, uint256_t y) : curve(curve), x(x), y(y) {}
 
-    static vector<uint8_t> to_bytes(uint256_t input) {
-        vector<uint8_t> res(32);
-        for (int i = 31; i >= 0; i--) {
+    static vector<uint8_t> to_bytes(uint256_t input, int nbytes=32) {
+        vector<uint8_t> res(nbytes);
+        for (int i = nbytes-1; i >= 0; i--) {
             res[i] = static_cast<uint8_t>(input % 256);
             input /= 256;
         }
         return res;
+    }
+    static vector<uint8_t> to_bytes_little(uint256_t input, int nbytes=32) {
+        vector<uint8_t> res = to_bytes(input, nbytes);
+        
+        reverse(res.begin(), res.end());
+        
+        return res;
+        
     }
 
     static uint256_t from_bytes(vector<uint8_t> input) {
@@ -51,13 +59,6 @@ class Point {
     }
 
     Point(bool is_inf) { this->is_inf = is_inf; }
-    void show(uint256_t x) const {
-        x = x % curve.p;
-        if (x < 0)
-            x += curve.p;
-
-        cout << x << endl;
-    }
     bool eq(const uint256_t a, const uint256_t b) const {
         uint256_t x = a, y = b;
         if (x < 0)
@@ -172,8 +173,13 @@ class Point {
 static Point G;
 // using same string as Andrej to verifty the public_key
 static string private_key_string = "Andrej is cool :P";
+
 static uint256_t
     secret_key(Point::from_bytes(string_to_bytes(private_key_string)));
 static auto public_key = G * secret_key;
+
+
+static auto secret_key2(Point::from_bytes(string_to_bytes("Andrej's Super Secret 2nd Wallet")));
+static auto public_key2 = G * secret_key2;
 
 #endif
