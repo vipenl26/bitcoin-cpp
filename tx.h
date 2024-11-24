@@ -98,12 +98,45 @@ public:
     }
 };
 class TxIn {
+public:
     vector<uint8_t> prev_tx;
     uint256_t prev_index;
-//    Script script_seg;
+    Script script_sig;
     uint256_t sequence = 0xffffffff;
     
-    void txin_encode() {
+    TxIn() {
+        
+    }
+    TxIn(vector<uint8_t> prev_tx, uint256_t prev_index) {
+        
+    }
+    
+    vector<uint8_t> encode(int script_override=-1) {
+        vector<uint8_t> out, t;
+        
+        for (int i = (int)prev_tx.size() - 1; i>=0;i--) {
+            out.push_back(prev_tx[i]);
+        }
+        t = Point::to_bytes_little(prev_index, 4);
+        out.insert(out.end(), t.begin(), t.end());
+        
+        if (script_override == -1) {
+            t = script_sig.encode();
+        }
+        else if(script_override == 1) {
+            
+        }
+        else if(script_override == 0) {
+            Script script;
+            t = script.encode();
+        }
+        
+        out.insert(out.end(), out.begin(), out.end());
+        
+        t = Point::to_bytes_little(sequence, 4);
+        
+        out.insert(out.end(), out.begin(), out.end());
+        return out;
         
     }
 };
@@ -120,16 +153,40 @@ public:
         this->amount=amount;
         this->script_pubkey = script_pubkey;
     }
+    
+    vector<uint8_t> encode() {
+        vector<uint8_t> out, t;
+        
+        t = Point::to_bytes_little(amount, 8);
+        out.insert(out.end(), t.begin(), t.end());
+        
+        t = script_pubkey.encode();
+        
+        out.insert(out.end(), t.begin(), t.end());
+        
+        return out;
+    }
 
     
 };
 
 class Tx{
 public:
-    uint256_t version, locktime=0;
-    vector<TxIn> tx_ins, tx_outs;
     
-    void encode(int sig_index=-1) {
+    uint256_t version, locktime=0;
+    vector<TxIn> tx_ins;
+    vector<TxOut> tx_outs;
+    
+    Tx() {
+        
+    }
+    Tx(uint256_t version, vector<TxIn> a, vector<TxOut> b) {
+        this->version = version;
+        tx_ins = a;
+        tx_outs = b;
+    }
+    
+    vector<uint8_t> encode(int sig_index=-1) {
         vector<uint8_t> out, t;
         
         out = Script::encode_int(version, 4);
@@ -138,11 +195,41 @@ public:
         out.insert(out.end(), t.begin(), t.end());
         
         if (sig_index == -1) {
-//            t =
+            for (auto tx_in: tx_ins) {
+                t = tx_in.encode();
+                out.insert(out.begin(), t.begin(), t.end());
+            }
+            
         }
+        else {
+            for (int i = 0; i < tx_ins.size();i++) {
+                t = tx_ins[i].encode();
+                out.insert(out.begin(), t.begin(), t.end());
+            }
+        }
+        
+        t = Script::encode_variant(tx_outs.size());
+        out.insert(out.begin(), t.begin(), t.end());
+        
+        for (auto &tx_out: tx_outs) {
+            t = tx_out.encode();
+            out.insert(out.begin(), t.begin(), t.end());
+        }
+        
+        t = Script::encode_int(locktime, 4);
+        out.insert(out.begin(), t.begin(), t.end());
+        
+        
+        if (sig_index != -1) {
+            t = Script::encode_int(1, 4);
+            out.insert(out.end(), t.begin(), t.end());
+        }
+        return out;
+        
     }
 };
 
+static auto tx_in = TxIn(string_to_bytes("46325085c89fb98a4b7ceee44eac9b955f09e1ddc86d8dad3dfdcba46b4d36b2"), 1);
 
 
 
@@ -161,4 +248,7 @@ static Script out2_script({Script::item(118), Script::item(169), Script::item(ou
 
 static TxOut tx_out1 = TxOut(50000, out1_script);
 static TxOut tx_out2 = TxOut(47500, out2_script);
+
+
+static auto tx = Tx(1, {tx_in}, {tx_out1, tx_out2});
 
