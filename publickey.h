@@ -24,16 +24,16 @@ class PublicKey : public Point {
         vector<uint8_t> pkb;
         if (compressed) {
             if (y % 2 == 0) {
-                prefix = '\x02';
+                prefix = 0x02;
             } else {
-                prefix = '\x03';
+                prefix = 0x03;
             }
             pkb.push_back(prefix);
             auto xb = to_bytes(x);
             pkb.insert(pkb.end(), xb.begin(), xb.end());
 
         } else {
-            prefix = '\x04';
+            prefix = 0x04;
             auto xb = to_bytes(x);
             auto yb = to_bytes(y);
             pkb.push_back(prefix);
@@ -42,13 +42,13 @@ class PublicKey : public Point {
         }
 
         return hash160 ? compute_ripemd160(compute_sha256(pkb))
-                       : compute_sha256(pkb);
+                       : pkb;
     }
 
     string address(string net, bool compressed) {
         auto pkb_hash = encode(compressed, true);
 
-        map<string, uint8_t> mp = {{"main", '\x00'}, {"test", '\x6f'}};
+        map<string, uint8_t> mp = {{"main", 0x00}, {"test", 0x6f}};
 
         vector<uint8_t> ver_pkb_hash;
         ver_pkb_hash.push_back(mp[net]);
@@ -85,7 +85,7 @@ class PublicKey : public Point {
         // for leading zeros
         string prefix = "";
         for (int i = 0; i < input.size() && input[i] == 0; i++) {
-            prefix += '0';
+            prefix += '1';
         }
 
         string res = ss.str();
