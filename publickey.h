@@ -51,7 +51,7 @@ class PublicKey : public Point {
         map<string, uint8_t> mp = {{"main", '\x00'}, {"test", '\x6f'}};
 
         vector<uint8_t> ver_pkb_hash;
-        ver_pkb_hash.push_back(mp["test"]);
+        ver_pkb_hash.push_back(mp[net]);
         ver_pkb_hash.insert(ver_pkb_hash.end(), pkb_hash.begin(),
                             pkb_hash.end());
 
